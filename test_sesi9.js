@@ -2,7 +2,7 @@ const { Builder, By, until } = require("selenium-webdriver");
 const assert = require("assert");
 const chrome = require("selenium-webdriver/chrome");
 
-describe("Google Search Test", function () {
+describe("SauceDemo Automation Test", function () {
   let driver;
 
   it("SauceDemo Login dan Sorting", async function () {
