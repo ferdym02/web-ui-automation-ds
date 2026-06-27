@@ -1,121 +1,127 @@
-# Selenium E2E Automation Testing - Bootcamp Edition
+# Selenium Automation Testing - SauceDemo Login
 
-Automated E2E testing project using **Selenium WebDriver**, **Mocha**, and **Visual Regression Testing** with [SauceDemo](https://www.saucedemo.com) as the target application.
+Automation testing project using **Selenium WebDriver**, **Mocha**, and **Page Object Model (POM)** with **Visual Regression Testing** on the SauceDemo website.
 
 ## Tech Stack
 
-- **Selenium WebDriver** - Browser automation
-- **Mocha** - Test framework
-- **Pixelmatch** - Image comparison for visual regression
-- **Canvas** - Image processing
+* Selenium WebDriver
+* Mocha
+* Pixelmatch
+* Canvas
 
 ## Project Structure
 
-```
+```text
 selenium-skola/
 ├── config/
-│   └── env.js              # Credentials & environment config
+│   └── env.js
 ├── tests/
-│   ├── locators/            # Element selectors (CSS, XPath)
+│   ├── locators/
 │   │   ├── loginPage.locator.js
-│   │   ├── productsPage.locator.js
-│   │   └── cartPage.locator.js
-│   ├── pages/               # Page Object classes
+│   │   └── productsPage.locator.js
+│   ├── pages/
 │   │   ├── loginPage.js
 │   │   ├── productsPage.js
-│   │   ├── cartPage.js
 │   │   └── screenshotPage.js
-│   ├── specs/               # Test specifications
-│   │   ├── login.spec.js
-│   │   ├── products.spec.js
-│   │   └── cart.spec.js
+│   ├── specs/
+│   │   └── login.spec.js
 │   └── utilities/
 │       └── visualRegressionHelper.js
-├── utilities/               # Helper utilities
-├── screenshot/             # Generated screenshots (gitignored)
-├── visual-baseline/         # Baseline images (gitignored)
-├── visual-current/          # Current screenshots (gitignored)
-├── visual-diff/             # Diff images (gitignored)
-├── .gitignore
+├── screenshot/
+├── visual-baseline/
+├── visual-current/
+├── visual-diff/
 ├── package.json
 └── README.md
 ```
 
 ## Installation
 
+Install project dependencies:
+
 ```bash
 npm install
 ```
 
-## Credentials
+## Running Test
 
-Credentials are stored in `config/env.js`:
-
-```javascript
-users: {
-  valid: {
-    username: 'standard_user',
-    password: 'secret_sauce'
-  }
-}
-```
-
-## Running Tests
+Run the login automation test:
 
 ```bash
-# Run all tests
-npx mocha tests/specs/*.spec.js --timeout 60000
-
-# Run specific test file
 npx mocha tests/specs/login.spec.js --timeout 60000
 ```
 
 ## Test Scenarios
 
-| ID | Scenario | Description |
-|----|----------|-------------|
-| TC-01 | Login Success | Login with valid credentials |
-| TC-05 | Products Display | Verify 6 products are displayed |
-| TC-10 | Cart Add Items | Add 3 items to cart |
+| Test Case | Description                                              |
+| --------- | -------------------------------------------------------- |
+| TC-01     | Login successfully using valid credentials               |
+| TC-02     | Login with invalid username and verify the error message |
 
-## Visual Regression Testing
+## Credentials
 
-Screenshot is taken on each test and compared with baseline:
+Credentials are configured in:
 
-```
-visual-baseline/  → Reference images (the "correct" standard)
-visual-current/   → New screenshots from each run
-visual-diff/      → Pixel-by-pixel differences (highlighted in red)
+```text
+config/env.js
 ```
 
-### Clean Visual Folders
+Example:
 
-```bash
-rm -rf visual-baseline visual-current visual-diff
-```
-
-## Page Object Model Pattern
-
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│    Spec     │ ──► │    Page     │ ──► │  Locator   │
-│   (Test)    │     │   Object    │     │  (By.css)  │
-└─────────────┘    └─────────────┘    └─────────────┘
-```
-
-## Troubleshooting
-
-### Click not working?
 ```javascript
-await this.driver.executeScript('arguments[0].click();', element);
+users: {
+  valid: {
+    username: "standard_user",
+    password: "secret_sauce"
+  },
+  invalid: {
+    username: "invalid_user",
+    password: "secret_sauce"
+  }
+}
 ```
 
-### Element not found?
-```javascript
-await this.driver.wait(async () => {
-  const elements = await this.driver.findElements(selector);
-  return elements.length > 0;
-}, 5000);
+## Visual Regression
+
+A screenshot is automatically captured after each test execution.
+
+The screenshots are managed in the following folders:
+
+```text
+visual-baseline/   # Baseline images
+visual-current/    # Current screenshots
+visual-diff/       # Comparison result images
+```
+
+If a baseline image does not exist, it will be created automatically on the first execution. On subsequent executions, the current screenshot will be compared with the baseline image.
+
+## Page Object Model (POM)
+
+This project implements the Page Object Model design pattern.
+
+```text
+Spec
+   │
+   ▼
+Page Object
+   │
+   ▼
+Locator
+```
+
+This structure helps separate test logic from web element locators, making the project easier to maintain and extend.
+
+## Expected Result
+
+After running the test successfully:
+
+```text
+SauceDemo Login Tests
+
+✔ TC-01: Login Success
+✔ TC-02: Login Invalid Username
+
+2 passing
 ```
 
 ## License
