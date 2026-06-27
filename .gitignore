@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Screenshots (generated files)
+screenshot/
+visual-baseline/
+visual-current/
+visual-diff/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# Build
+dist/
+build/
